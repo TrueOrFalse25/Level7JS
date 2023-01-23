@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 7</title>
+    <script>
+        var text = "This is the text for the game";
+
+        // display the text
+        document.getElementById("text").innerHTML = text;
+
+        // get the input field
+        var input = document.getElementById("input");
+
+        // listen for keystrokes in the input field
+        input.addEventListener("keyup", function(event) {
+        // compare the user's input to the correct text
+        if (event.target.value === text) {
+            alert("You won!");
+        }
+        });
+    </script>
+</head>
+<body>
+    <div id="game">
+    <div id="text"></div>
+    <input type="text" id="input"></input>
+    <div id="score"></div>
+</div>
+</body>
+</html>
