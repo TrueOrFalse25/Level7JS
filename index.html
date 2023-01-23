@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html onkeydown = "logKey(event);" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive The Car</title>
+    <style>
+        #pcar {
+            width: 400px;
+            height: auto;
+            position: absolute;
+            top: 340px;
+            left: 250px;
+            
+        }
+        body {
+            overflow: hidden;
+        }
+        #log {
+            overflow-y: scroll;
+        }
+    </style>
+    <script>
+        const FORWARD = 38, BACKWARD = 40, LEFT = 37, RIGHT = 39;
+
+        function initialize()
+        {
+            purpleCar = document.getElementById("pcar");
+            speedInput = document.getElementById("speedometer");
+
+            keyLogOut = document.getElementById("log");
+            keyLog = "";
+            xCoord = 250;
+            yCoord = 340;
+        }
+        function logKey(e)
+        {
+            var spd = parseInt(speedInput.value);
+            var dir = "";
+            if (e.which == FORWARD) 
+            {
+                yCoord -= spd;
+                dir = "forward";
+            }
+            if (e.which == BACKWARD) 
+            {
+                yCoord += spd;
+                dir = "backward";
+            }
+            if (e.which == LEFT) 
+            {
+                xCoord -= spd;
+                dir = "left";
+            }
+            if (e.which == RIGHT) 
+            {
+                xCoord += spd;
+                dir = "right";
+            }
+            if (dir === "forward" || dir === "backward" || dir === "left" || dir === "right") {
+                var str = "which: " + e.which + "<br />";
+                str += "key: " + e.key + "<br />";
+                str += "code: " + e.code + "<br />";
+
+                keyLog = str + keyLog;
+                
+                keyLog = "The car moved " + dir + ".<hr />" + keyLog;
+            }
+            display();
+        }
+
+        function display()
+        {
+            keyLogOut.innerHTML = keyLog;
+
+            purpleCar.style.top = yCoord + "px";
+            purpleCar.style.left = xCoord + "px";            
+        }
+    </script>
+</head>
+<body onload="initialize()">
+    Speed: <input id = "speedometer" value = "1" type = "number" /><br /><br />
+    <div id = "log"></div>
+    <img id = "pcar" src = "purpleCar.jpg" />
+</body>
+</html>
