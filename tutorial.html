@@ -1,33 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level 7</title>
-    <script>
-        var text = "This is the text for the game";
+<!DOCTYPE HTML>
+<html onmousedown = "react(event, 'cornflowerblue');"
+      onmouseup = "react(event, 'white');"
+      oncontextmenu= "react(event, 'white');">
+    <head>
+        <title>Events!</title>
+        <style></style>
+        <script>
+            // function initialize()
+            // {
+            //     eventOutput = document.getElementById("evout");
+            // }
+            // function react(e, clr)
+            // {
+            //     // console.log("You clicked the mouse.")
 
-        // display the text
-        document.getElementById("text").innerHTML = text;
+            //     var str = "(" + e.clientX + ", " + e.clientY + ")<br />";
+            //     str += "target: " + e.target + "<br />";
+            //     str += "button: " + e.button + "<br />";
+            //     str += "type: " + e.type + "<br />";
+            //     e.target.style.backgroundColor = clr;
+            //     eventOutput.innerHTML = str;
+            // }
+            // const FORWARD = 38, BACKWARD = 40;
+            // function initialize()
+            // {
+            //     purpleCar = document.getElementById("pcar");
+            //     speedInput = document.getElementById("speedometer");
 
-        // get the input field
-        var input = document.getElementById("input");
+            //     keyLogOut = document.getElementById("log");
+            //     keyLog = "";
+            //     xCoord = 250;
+            //     yCoord = 340;
+            // }
 
-        // listen for keystrokes in the input field
-        input.addEventListener("keyup", function(event) {
-        // compare the user's input to the correct text
-        if (event.target.value === text) {
-            alert("You won!");
-        }
-        });
-    </script>
-</head>
-<body>
-    <div id="game">
-    <div id="text"></div>
-    <input type="text" id="input"></input>
-    <div id="score"></div>
-</div>
-</body>
+            // function logKey(e)
+            // {
+                // var str = "which: " + e.which + "<br />";
+                // str += "key: " + e.key + "<br />";
+                // str += "code: " + e.code + "<br />";
+
+                // keyLog = str + keyLog;
+
+            //     var spd = parseInt(speedInput.value);
+            //     var dir = "";
+            //     if (e.which == FORWARD)
+            //     {
+            //         yCoord -= spd;
+            //         dir = "forward";
+            //     }
+            //     else
+            //     {
+            //         if (e.which == BACKWARD)
+            //         {
+            //             yCoord += spd;
+            //             dir = "backward";
+            //         }
+            //     }
+            //     keyLog = "The car moved " + dir + ".<hr />" + keyLog;
+
+            //     display();
+            // }
+
+            // function display()
+            // {
+            //     keyLogOut.innerHTML = keyLog;
+
+            //     purpleCar.style.top = yCoord + "px";
+            //     purpleCar.style.left = xCoord + "px";
+            // }
+
+            // const TIMER_OFF = -1;
+
+            // function initialize()
+            // {
+            //     counterOut = document.getElementById("ctrout");
+            //     counter = 0;
+            //     counterTimer = TIMER_OFF;
+            // }
+
+            // function startCounter()
+            // {
+            //     // counterTimer = setInterval(counter, 1000);
+            //     // alert(counterTimer);
+            //     if (counterTimer == TIMER_OFF)
+            //     {
+            //         counterTimer = setInterval(count, 1000);
+            //     }
+            // }
+
+            // function stopCounter()
+            // {
+            //     clearInterval(counterTimer);
+            //     counterTimer = TIMER_OFF;
+            // }
+
+            // function count()
+            // {
+            //     counter++;
+            //     display();
+            // }
+
+            // function display()
+            // {
+            //     counterOut.innerHTML = counter;
+            // }
+            function initialize()
+            {
+                countersOut = document.getElementById("ctrs");
+                counterList = [];
+            }
+
+            function addCounter()
+            {
+                var tmpCtr = {};
+                tmpCtr.counter = 0;
+                tmpCtr.started = false;
+
+                tmpCtr.startButton = document.createElement("button");
+                tmpCtr.startButton.innerHTML = "Start Counter";
+                tmpCtr.startButton.myCounter = tmpCtr;
+
+                tmpCtr.startButton.addEventListener("click", function()
+                {
+                    if (!this.myCounter.started)
+                    {
+                        this.myCounter.started = true;
+                        this.myCounter.timerID = setInterval(function()
+                        {
+                            tmpCtr.counter++;
+                            display();
+                        }, 1000);
+                    }
+                });
+
+                tmpCtr.stopButton = document.createElement("button");
+                tmpCtr.stopButton.innerHTML = "Stop Counter";
+                tmpCtr.stopButton.myCounter = tmpCtr;
+
+                tmpCtr.stopButton.addEventListener("click", function()
+                {
+                    clearInterval(this.myCounter.timerID);
+                    this.myCounter.started = false;
+                });
+
+                tmpCtr.counterDisplay = document.createElement("span")
+                tmpCtr.counterDisplay.innerHTML = " " + 0;
+
+                countersOut.appendChild(document.createElement("hr"));
+                countersOut.appendChild(tmpCtr.startButton);
+                countersOut.appendChild(tmpCtr.stopButton);
+                countersOut.appendChild(tmpCtr.counterDisplay);
+
+                counterList.push(tmpCtr);
+            }
+
+            function display()
+            {
+                for (var i = 0; i < counterList.length; i++)
+                {
+                    counterList[i].counterDisplay.innerHTML = " " + counterList[i].counter;
+                }
+            }
+        </script>
+    </head>
+    <body onload = "initialize();">
+        <!-- <div id = "evout"></div>
+        Speed: <input id = "speedometer" value = "1" type = "number" /><br /><br />
+        <div id = "log"></div>
+        <img id = "pcar" src = "purplecar.png" /> -->
+        <div id = "ctrout"> 0</div>
+        <button onclick = "startCounter();">Start Counter</button>
+        <button onclick = "stopCounter();">Stop Counter</button>
+        <button onclick = "addCounter();">Add Counter</button>
+        <div id = "ctrs"></div>
+    </body>
 </html>
