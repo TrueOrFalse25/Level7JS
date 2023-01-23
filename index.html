@@ -12,7 +12,6 @@
             position: absolute;
             top: 340px;
             left: 250px;
-            
         }
         body {
             overflow: hidden;
@@ -33,6 +32,8 @@
             keyLog = "";
             xCoord = 250;
             yCoord = 340;
+
+            
         }
         function logKey(e)
         {
@@ -42,21 +43,25 @@
             {
                 yCoord -= spd;
                 dir = "forward";
+                purpleCar.style.transform = 'rotate(-360deg)';
             }
             if (e.which == BACKWARD) 
             {
                 yCoord += spd;
                 dir = "backward";
+                purpleCar.style.transform = 'rotate(-180deg)';
             }
             if (e.which == LEFT) 
             {
                 xCoord -= spd;
                 dir = "left";
+                purpleCar.style.transform = 'rotate(-90deg)';
             }
             if (e.which == RIGHT) 
             {
                 xCoord += spd;
                 dir = "right";
+                purpleCar.style.transform = 'rotate(-270deg)';
             }
             if (dir === "forward" || dir === "backward" || dir === "left" || dir === "right") {
                 var str = "which: " + e.which + "<br />";
